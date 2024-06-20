@@ -1,0 +1,36 @@
+{
+  "name": "get-cid-back",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Obtener CID Office 2021 Phone",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edwarddev01/get-cid.git"
+  },
+  "author": "Edward Díaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edwarddev01/get-cid/issues"
+  },
+  "homepage": "https://github.com/edwarddev01/get-cid#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.10.1",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
