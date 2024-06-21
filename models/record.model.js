@@ -1,6 +1,6 @@
 //Importamos paquetes y archivos
 import { Model, DataTypes } from "sequelize";
-import { connection } from "../database/connection";
+import { connection } from "../database/connection.js";
 
 //Exportamos la clase que hereda de Model
 export class Record extends Model {}
@@ -17,44 +17,12 @@ Record.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  token:{
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  a: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  b: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  c: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  d: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  e: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  f: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  g: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  h: {
-    type: DataTypes.BIGINT,
+  id_token:{
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   iid: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   status: {
@@ -63,7 +31,18 @@ Record.init({
     defaultValue: 0,
   },
   cid: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
   },
+},{
+  sequelize:connection,
+  modelName: "records",
+  freezeTableName: true,
+  indexes:[
+    {
+      unique: true,
+      fields:["iid"]
+    }
+  ]
 });
+

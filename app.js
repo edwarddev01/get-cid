@@ -8,8 +8,11 @@ config();
 
 //Importamos archivos de conexion a la base datos
 import { connection } from './database/connection.js';
+import { syncModels } from './database/sync.models.js';
 
 //Importamos rutas
+import { clientRouter } from './routers/client.router.js';
+import { adminRouter } from './routers/admin.router.js';
 
 //Incializamos express
 const app = express();
@@ -22,6 +25,8 @@ app.use(bodyParser.json());
 app.use(morgan('short'));
 
 //Configuracion de rutas
+app.use(clientRouter);
+app.use(adminRouter);
 
 //Inicializamos el servidor y la conexion a la base de datos
 const port = process.env.PORT || 3000;
@@ -30,6 +35,7 @@ app.listen(port, async () => {
         console.log(`Servidor inicializado en el puerto: ${port}`);
         console.log(`Conectando a la base de datos...`);
         await connection.sync({ alter: true })
+        await syncModels();
         console.log('Conexion exitosa.');
     } catch (error) {
         console.log(`Error al iniciar el servidor: ${error}`);

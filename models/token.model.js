@@ -3,10 +3,10 @@ import { Model, DataTypes } from "sequelize";
 import { connection } from "../database/connection.js";
 
 //Exportamos la clase que hereda de Model
-export class Admin extends Model {}
+export class Token extends Model {}
 
 //Inicializamos y construimos el modelo
-Admin.init(
+Token.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -14,36 +14,25 @@ Admin.init(
       primaryKey: true,
       allowNull: false,
     },
-    email: {
+    token: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    password: {
-      type: DataTypes.STRING,
+    status: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: true,
     },
-    secret: {
-      type: DataTypes.STRING,
-      defaultValue: null,
-    },
-    token_id: {
-      type: DataTypes.STRING,
-      allowNull:false
-    }
   },
   {
+    modelName: "tokens",
     sequelize: connection,
-    modelName: "admins",
     freezeTableName: true,
     indexes: [
       {
         unique: true,
-        fields: ["email"],
+        fields: ["token"],
       },
-      {
-        unique: true,
-        fields:["token_id"]
-      }
     ],
   }
 );
