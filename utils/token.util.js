@@ -1,5 +1,6 @@
 import Jwt from "jsonwebtoken";
 import { request, response } from "express";
+import { Token } from "../models/token.model.js";
 
 export function createTokenLogin(data) {
   try {
@@ -14,7 +15,7 @@ export function createTokenLogin(data) {
 export function validateToken(req = request, res = response, next) {
   try {
     const { authorization } = req.headers;
-    if (!authorization || !authorization.startsWith('Bearer ')) {
+    if (!authorization || !authorization.startsWith("Bearer ")) {
       return res.status(401).send({
         status: "Unauthorized",
         message: "Se requiere autenticación. Falta el token en el encabezado.",
@@ -28,7 +29,7 @@ export function validateToken(req = request, res = response, next) {
         name: decodedToken.name,
         email: decodedToken.email,
         token_id: decodedToken.token_id,
-        s2f: decodedToken.secret ? true : false
+        s2f: decodedToken.secret ? true : false,
       };
       req.user = userData;
       next();
@@ -44,5 +45,29 @@ export function validateToken(req = request, res = response, next) {
       status: "Unauthorized",
       message: "Error al validar la autenticación " + error.message,
     });
+  }
+}
+export async function tokenValido(req = request, res = response, next) {
+  try {
+    const token = await Token.findOne({
+      where: {
+        token: req.body.token,
+        status: true,
+      },
+    });
+    if (token) {
+      next();
+    } else {
+      res.status(401).send({
+        status: "error",
+        message: "Token invalido, revise e intente nuevamente!!",
+      });
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({
+      status:"error",
+      message:"Erro de servidor"
+    })
   }
 }

@@ -13,10 +13,6 @@ Record.init({
     primaryKey: true,
     allowNull: false,
   },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   id_token:{
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -24,11 +20,6 @@ Record.init({
   iid: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  status: {
-    type: DataTypes.TINYINT,
-    allowNull: false,
-    defaultValue: 0,
   },
   cid: {
     type: DataTypes.STRING,

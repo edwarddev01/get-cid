@@ -14,7 +14,7 @@ export class clientController {
         },
       });
       if (token) {
-        const cid = await apiController.getCID(req.body.iid, req.body.email);
+        const cid = await apiController.getCID(req.body.iid);
         if (cid) {
           const regex = /^[0-9]*$/;
           if (regex.test(cid)) {
@@ -51,10 +51,9 @@ export class clientController {
   static async createRecord(req = request, res = response, id_token, cid) {
     try {
       await Record.create({
-        email: req.body.email,
         iid: req.body.iid,
         id_token: id_token,
-        cid: cid
+        cid: cid,
         });
     } catch (error) {
       console.log(error);
@@ -71,14 +70,14 @@ export class clientController {
 
     for (let index = 0; index < cid.length; index++) {
       const element = cid[index];
-      if (i <= 6) {
+      if (i < 6) {
         aux_cid += element;
         i++;
       } else {
-        aux_cid += "-";
+        aux_cid +=element+"-";
         i = 1;
       }
     }
-    return aux_cid;
+    return aux_cid.substring(0, aux_cid.length - 1);
   }
 }

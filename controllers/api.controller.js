@@ -1,10 +1,10 @@
 //Importamos librerias y declaramos constantes
 import axios from "axios";
-const token_id =
-  "BgjUCuCBSkhZZjV6bGxMY3hjMG5IcDYwN1NuWktzWFlLcVN1Vmc4MGJlY2FWR0QwQT0";
+import 'dotenv/config';
+const token_id = process.env.TOKEN_ID || "BgjUCuCBSkhZZjV6bGxMY3hjMG5IcDYwN1NuWktzWFlLcVN1Vmc4MGJlY2FWR0QwQT0";
 
 export class apiController {
-  static async getCID(iid, email, token) {
+  static async getCID(iid) {
     let cid = "";
 
     while (true) {
@@ -14,8 +14,7 @@ export class apiController {
           new URLSearchParams({
             iid: iid,
             price: "0.4",
-            token: token_id,
-            send_to_email: email,
+            token: token_id
           }),
           {
             headers: {
