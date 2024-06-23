@@ -1,0 +1,226 @@
+<div class="w-full flex flex-wrap justify-center items-center">
+    <h1 class="w-full text-center text-4xl font-bold my-8">Obtén tu ID de Confirmación (CID)</h1>
+  <div class="w-full md:w-4/5 flex justify-between">
+    <div class="bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
+      <div class="flex flex-col space-y-1.5 p-6">
+        <h3
+          class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+        >
+          Ingresa tus datos
+        </h3>
+        <p class="text-sm text-muted-foreground">
+          Por favor, completa los siguientes campos para obteber tu CID.
+        </p>
+      </div>
+      <div class="px-6">
+        <form class="grid gap-4" (ngSubmit)="onSubmit()" [formGroup]="form">
+          <div class="grid grid-cols-1 gap-4">
+            <div class="space-y-2">
+              <label
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="token"
+              >
+                Token:
+              </label>
+              <input
+                formControlName="token"
+                type="text"
+                class="flex h-10 w-full text-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="token"
+                placeholder="Ingresa tu token"
+              />
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label
+              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              for="token"
+            >
+              ID de instalación:
+            </label>
+            <input
+              formControlName="iid"
+              type="text"
+              class="flex h-10 text-center w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              id="iid"
+              placeholder="Ingresa el IID"
+            />
+          </div>
+          <div class="form-group">
+            <re-captcha
+              formControlName="recaptchaToken"
+              siteKey="6LefMP8pAAAAAAJDKqdogM-8EnMDsam8TZH_yxy0"
+            ></re-captcha>
+          </div>
+          <button
+            type="submit"
+            [disabled]="form.invalid"
+            class="inline-flex w-[300px] bg-blue-600 text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 mr-2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59"
+              />
+            </svg>
+
+            Get CID
+          </button>
+        </form>
+      </div>
+      <div>
+        <div class="bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
+            <div class="flex flex-col px-6 mt-12 mb-2">
+              <h3
+                class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+              >
+                Resultados de la petición
+              </h3>
+    
+            </div>
+            <div class="px-6">
+              <form class="grid gap-4" >
+                <div class="grid grid-cols-1 gap-4">
+                  <div class="space-y-2">
+                    <label
+                      class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      for="cid"
+                    >
+                      ID de Confirmación:
+                    </label>
+                    <input
+                      [value]="cid || 'Aquí va el resultado de la consulta'"
+                      type="text"
+                      class="flex h-10 w-full text-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      id="cid"
+                      placeholder="Aquí va el resultado de la consulta"
+                      readonly
+                    />
+                  </div>
+                    <input
+                      [value]="aux_cid || 'Aquí va el resultado de la consulta'"
+                      type="text"
+                      class="flex h-10 w-full text-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      id="aux_cid"
+                      placeholder="Aquí va el resultado de la consulta"
+                      readonly
+                    />
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div
+      class="bg-card text-card-foreground shadow-sm w-full"
+      data-v0-t="card"
+    >
+      <div class="w-full space-y-1.5 p-6">
+        <div class="container px-4 md:px-6">
+          <div class="grid gap-6">
+            <div class="space-y-2">
+              <h2 class="text-2xl font-semibold tracking-tighter">
+                Instrucciones paso a paso
+              </h2>
+              <p
+                class="max-w-[600px] text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed"
+              >
+                Sigue estos pasos con cuidado para completar obteber tú ID de
+                confirmación.
+              </p>
+            </div>
+            <div class="grid gap-6">
+              <div class="grid gap-2">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white"
+                  >
+                    1
+                  </div>
+                  <h3 class="text-lg font-semibold">
+                    Paso 1: Coloca el token que te enviamos.
+                  </h3>
+                </div>
+                <p class="text-muted-foreground">
+                  Con el token tienes acceso para poder obtener tú CID, recuerda
+                  que son de un solo uso.
+                </p>
+              </div>
+              <div class="grid gap-2">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white"
+                  >
+                    2
+                  </div>
+                  <h3 class="text-lg font-semibold">
+                    Paso 2: Ingresa el ID de instalación
+                  </h3>
+                </div>
+                <p class="text-muted-foreground">
+                  Ingresa el ID de instalación que te genero la licencia, sin
+                  espacio,s ni guiones.
+                </p>
+              </div>
+              <div class="grid gap-2">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white"
+                  >
+                    3
+                  </div>
+                  <h3 class="text-lg font-semibold">
+                    Paso 3: Marca la casilla del reCAPTCHA.
+                  </h3>
+                </div>
+                <p class="text-muted-foreground">
+                  Para verificar que eres humano.
+                </p>
+              </div>
+              <div class="grid gap-2">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white"
+                  >
+                    4
+                  </div>
+                  <h3 class="text-lg font-semibold">
+                    Paso 4: Clic en "GET CID" espera por el ID de confirmación.
+                  </h3>
+                </div>
+                <p class="text-muted-foreground">
+                  Espera mientras finaliza el proceso, que puede durar hasta 10
+                  minutos no actualices, ni cierres la pagina.
+                </p>
+              </div>
+              <div class="grid gap-2">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white"
+                  >
+                    5
+                  </div>
+                  <h3 class="text-lg font-semibold">
+                    Paso 5: Copia el ID de confirmación.
+                  </h3>
+                </div>
+                <p class="text-muted-foreground">
+                  Una vez finalice, copia el CID y activa tu Office.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
