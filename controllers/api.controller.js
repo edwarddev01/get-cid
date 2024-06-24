@@ -26,7 +26,7 @@ export class apiController {
         const data = response.data;
 
         if (data.success === false) {
-          console.log(data.error_message);
+          cid = data.error_message;
           break;
         } else if (data.cid) {
           cid = data.cid;
