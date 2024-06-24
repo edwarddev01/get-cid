@@ -1,5 +1,7 @@
 <div class="w-full flex flex-wrap justify-center items-center">
-    <h1 class="w-full text-center text-4xl font-bold my-8">Obtén tu ID de Confirmación (CID)</h1>
+  <h1 class="w-full text-center text-4xl font-bold my-8">
+    Obtén tu ID de Confirmación (CID)
+  </h1>
   <div class="w-full md:w-4/5 flex justify-between">
     <div class="bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
       <div class="flex flex-col space-y-1.5 p-6">
@@ -55,7 +57,7 @@
           <button
             type="submit"
             [disabled]="form.invalid"
-            class="inline-flex w-[300px] bg-blue-600 text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            class="inline-flex w-[300px] hover:bg-blue-800 bg-blue-600 text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -77,53 +79,156 @@
         </form>
       </div>
       <div>
-        <div class="bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
-            <div class="flex flex-col px-6 mt-12 mb-2">
-              <h3
-                class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
-              >
-                Resultados de la petición
-              </h3>
-    
-            </div>
-            <div class="px-6">
-              <form class="grid gap-4" >
-                <div class="grid grid-cols-1 gap-4">
-                  <div class="space-y-2">
-                    <label
-                      class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      for="cid"
-                    >
-                      ID de Confirmación:
-                    </label>
-                    <input
-                      [value]="cid || 'Aquí va el resultado de la consulta'"
-                      type="text"
-                      class="flex h-10 w-full text-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      id="cid"
-                      placeholder="Aquí va el resultado de la consulta"
-                      readonly
-                    />
-                  </div>
-                    <input
-                      [value]="aux_cid || 'Aquí va el resultado de la consulta'"
-                      type="text"
-                      class="flex h-10 w-full text-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      id="aux_cid"
-                      placeholder="Aquí va el resultado de la consulta"
-                      readonly
-                    />
-                  
-                </div>
-              </form>
-            </div>
+        <div
+          class="bg-card text-card-foreground shadow-sm w-full"
+          data-v0-t="card"
+        >
+          <div class="flex flex-col px-6 mt-12 mb-2">
+            <h3
+              class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+            >
+              Resultados de la petición
+            </h3>
           </div>
+          <div class="px-6">
+            <form class="grid gap-4">
+              <div class="grid grid-cols-1 gap-4">
+                <div class="space-y-2">
+                  <label
+                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    for="cid"
+                  >
+                    ID de Confirmación:
+                  </label>
+                  <input
+                    [value]="cid || ''"
+                    type="text"
+                    class="flex h-10 w-full text-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="cid"
+                    placeholder="Aquí va el resultado de la consulta"
+                    readonly
+                  />
+                </div>
+                <input
+                  [value]="aux_cid || ''"
+                  type="text"
+                  class="flex h-10 w-full text-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  id="aux_cid"
+                  readonly
+                />
+              </div>
+              <div class="grid grid-cols-8 gap-2 mb-12">
+                <div class="space-y-2 grid">
+                  <label style="text-align: center;"
+                    class="text-sm font-medium text-center w-full peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >A</label
+                  >
+                  <input
+                    class="flex h-10 w-full rounded-md border border-input bg-gray-100 px-3 py-2 text-sm text-center ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="a"
+                    [value]="result[0] || ''"
+                    placeholder="A"
+                    readonly
+                  />
+                </div>
+                <div class="space-y-2 grid">
+                  <label
+                    class="text-sm font-medium text-center leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >B</label
+                  >
+                  <input
+                    class="flex h-10 w-full rounded-md border border-input bg-gray-100 px-3 py-2 text-sm text-center ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="b"
+                    placeholder="B"
+                    [value]="result[1] || ''"
+                    readonly
+                  />
+                </div>
+                <div class="space-y-2 grid">
+                  <label
+                    class="text-sm font-medium text-center leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >C</label
+                  >
+                  <input
+                    class="flex h-10 w-full rounded-md border border-input bg-gray-100 px-3 py-2 text-sm text-center ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="c"
+                    placeholder="C"
+                    readonly
+                    [value]="result[2] || ''"
+                  />
+                </div>
+                <div class="space-y-2 grid">
+                  <label
+                    class="text-sm font-medium text-center leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >D</label
+                  >
+                  <input
+                    class="flex h-10 w-full rounded-md border border-input bg-gray-100 px-3 py-2 text-sm text-center ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="d"
+                    placeholder="D"
+                    readonly
+                    [value]="result[3] || ''"
+                  />
+                </div>
+                <div class="space-y-2 grid">
+                  <label
+                    class="text-sm font-medium text-center leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >E</label
+                  >
+                  <input
+                    class="flex h-10 w-full rounded-md border border-input bg-gray-100 px-3 py-2 text-sm text-center ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="e"
+                    placeholder="E"
+                    readonly
+                    [value]="result[4] || ''"
+                  />
+                </div>
+                <div class="space-y-2 grid">
+                  <label
+                    class="text-sm text-center font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >F</label
+                  >
+                  <input
+                    class="flex h-10 w-full rounded-md border border-input bg-gray-100 px-3 py-2 text-sm text-center ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="f"
+                    placeholder="F"
+                    readonly
+                    [value]="result[5] || ''"
+                  />
+                </div>
+                <div class="space-y-2 grid">
+                  <label
+                    class="text-sm font-medium text-center leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >G</label
+                  >
+                  <input
+                    class="flex h-10 w-full rounded-md border border-input bg-gray-100 px-3 py-2 text-sm text-center ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="g"
+                    placeholder="G"
+                    readonly
+                    [value]="result[6] || ''"
+                  />
+                </div>
+                <div class="space-y-2 grid">
+                  <label
+                    class="text-sm font-medium text-center leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >H</label
+                  >
+                  <input
+                    class="flex h-10 w-full rounded-md border border-input bg-gray-100 px-3 py-2 text-sm text-center ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="h"
+                    placeholder="H"
+                    readonly
+                    [value]="result[7] || ''"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-    <div
-      class="bg-card text-card-foreground shadow-sm w-full"
-      data-v0-t="card"
-    >
+    <div class="bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
       <div class="w-full space-y-1.5 p-6">
         <div class="container px-4 md:px-6">
           <div class="grid gap-6">

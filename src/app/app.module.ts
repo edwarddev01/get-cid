@@ -7,11 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { GetCidComponent } from './get-cid/get-cid.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PreloaderComponent } from './preloader/preloader.component'; 
 @NgModule({
   declarations: [
     AppComponent,
-    GetCidComponent
+    GetCidComponent,
+    PreloaderComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     RecaptchaModule,
     RecaptchaFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
