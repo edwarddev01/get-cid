@@ -19,6 +19,6 @@ const config = {
     dialect: "mysql",
     logging: false,
     timezone: "-05:00"
-  ,
+  },
 };
 export { config };
