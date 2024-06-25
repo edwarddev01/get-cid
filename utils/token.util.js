@@ -1,8 +1,8 @@
-import Jwt from "jsonwebtoken";
-import { request, response } from "express";
-import { Token } from "../models/token.model.js";
+const Jwt = require("jsonwebtoken");
+const { request, response } = require("express");
+const { Token } = require("../models/token.model.js");
 
-export function createTokenLogin(data) {
+function createTokenLogin(data) {
   try {
     return Jwt.sign(data, process.env.SECRET || "secret_key", {
       expiresIn: "7d",
@@ -12,7 +12,7 @@ export function createTokenLogin(data) {
   }
 }
 
-export function validateToken(req = request, res = response, next) {
+function validateToken(req = request, res = response, next) {
   try {
     const { authorization } = req.headers;
     if (!authorization || !authorization.startsWith("Bearer ")) {
@@ -47,7 +47,8 @@ export function validateToken(req = request, res = response, next) {
     });
   }
 }
-export async function tokenValido(req = request, res = response, next) {
+
+async function tokenValido(req = request, res = response, next) {
   try {
     const token = await Token.findOne({
       where: {
@@ -64,10 +65,16 @@ export async function tokenValido(req = request, res = response, next) {
       });
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).send({
-      status:"error",
-      message:"Erro de servidor"
-    })
+      status: "error",
+      message: "Erro de servidor",
+    });
   }
 }
+
+module.exports = {
+  createTokenLogin,
+  validateToken,
+  tokenValido,
+};

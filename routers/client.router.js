@@ -1,9 +1,14 @@
-//Importamos paquetes y archivos
-import { Router } from "express";
-import { clientController } from "../controllers/client.controller.js";
-import { verifyRecaptchaToken } from "../utils/recaptcha.util.js";
-import { tokenValido } from "../utils/token.util.js";
-export const clientRouter = Router();
+// Importamos paquetes y archivos
+const { Router } = require("express");
+const { clientController } = require("../controllers/client.controller.js");
+const { verifyRecaptchaToken } = require("../utils/recaptcha.util.js");
+const { tokenValido } = require("../utils/token.util.js");
 
-clientRouter.post("/api/v1/get-cid",[verifyRecaptchaToken, tokenValido], clientController.getCID);
+// Creamos el enrutador
+const clientRouter = Router();
 
+// Definimos las rutas
+clientRouter.post("/api/v1/get-cid", [verifyRecaptchaToken, tokenValido], clientController.getCID);
+
+// Exportamos el enrutador
+module.exports = { clientRouter };

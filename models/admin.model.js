@@ -1,11 +1,11 @@
-//Importamos paquetes y archivos
-import { Model, DataTypes } from "sequelize";
-import { connection } from "../database/connection.js";
+// Importamos paquetes y archivos
+const { Model, DataTypes } = require("sequelize");
+const { connection } = require("../database/connection.js");
 
-//Exportamos la clase que hereda de Model
-export class Admin extends Model {}
+// Definimos la clase que hereda de Model
+class Admin extends Model {}
 
-//Inicializamos y construimos el modelo
+// Inicializamos y construimos el modelo
 Admin.init(
   {
     id: {
@@ -28,7 +28,7 @@ Admin.init(
     },
     token_id: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull: false
     }
   },
   {
@@ -42,8 +42,10 @@ Admin.init(
       },
       {
         unique: true,
-        fields:["token_id"]
+        fields: ["token_id"]
       }
     ],
   }
 );
+
+module.exports = { Admin };

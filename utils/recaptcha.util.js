@@ -1,9 +1,9 @@
-import axios from 'axios';
-import 'dotenv/config';
-import { request, response } from "express";
+const axios = require('axios');
+require('dotenv/config');
+const { request, response } = require("express");
 
 
-export async function verifyRecaptchaToken(req = request, res = response, next) {
+async function verifyRecaptchaToken(req = request, res = response, next) {
     if (!req.body.recaptchaToken) {
         return res.status(400).json({ message: 'reCAPTCHA: falta el token.' });
     }
@@ -21,4 +21,6 @@ export async function verifyRecaptchaToken(req = request, res = response, next) 
       console.error('Error verificando reCAPTCHA:', error);
       return res.status(500).json({ message: 'Internal server error' });
     }
-  }
+}
+
+module.exports = { verifyRecaptchaToken };

@@ -1,4 +1,3 @@
-//Configuraciones para bases de datos
 const config = {
   development: {
     host: "65.21.238.170",
@@ -21,4 +20,5 @@ const config = {
     timezone: "-05:00"
   },
 };
-export { config };
+
+module.exports = { config };

@@ -1,14 +1,14 @@
 //Importamos paquetes y archivos
-import { request, response } from "express";
-import { Admin } from "../models/admin.model.js";
-import { Record } from "../models/record.model.js";
-import { Token } from "../models/token.model.js";
-import { apiController } from "./api.controller.js";
-import crypto from "crypto";
-import { hashPassword, validatePassword } from "../utils/password.util.js";
-import { createTokenLogin } from "../utils/token.util.js";
+const { request, response } = require("express");
+const { Admin } = require("../models/admin.model.js");
+const { Record } = require("../models/record.model.js");
+const { Token } = require("../models/token.model.js");
+const { apiController } = require("./api.controller.js");
+//const crypto = require("crypto");
+const { hashPassword, validatePassword } = require("../utils/password.util.js");
+const { createTokenLogin } = require("../utils/token.util.js");
 
-export class adminController {
+class adminController {
   static async createAdmin(req = request, res = response) {
     try {
       req.body.password = await hashPassword(req.body.password);
@@ -96,8 +96,8 @@ export class adminController {
         if (!record) {
           token = token_aux;
           await Token.create({
-            token: token
-          })
+            token: token,
+          });
           break;
         }
       }
@@ -118,12 +118,15 @@ export class adminController {
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
     let token = "";
-
+  
     for (let i = 0; i < 20; i++) {
-      const randomIndex = crypto.randomInt(charactersLength);
+      const randomIndex = Math.floor(Math.random() * charactersLength);
       token += characters.charAt(randomIndex);
     }
-
+  
     return token;
   }
+  
 }
+
+module.exports = { adminController };

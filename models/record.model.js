@@ -1,11 +1,11 @@
-//Importamos paquetes y archivos
-import { Model, DataTypes } from "sequelize";
-import { connection } from "../database/connection.js";
+// Importamos paquetes y archivos
+const { Model, DataTypes } = require("sequelize");
+const { connection } = require("../database/connection.js");
 
-//Exportamos la clase que hereda de Model
-export class Record extends Model {}
+// Definimos la clase que hereda de Model
+class Record extends Model {}
 
-//Inicializamos y construimos el modelo
+// Inicializamos y construimos el modelo
 Record.init({
   id: {
     type: DataTypes.INTEGER,
@@ -37,3 +37,4 @@ Record.init({
   ]
 });
 
+module.exports = { Record };

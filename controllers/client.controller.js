@@ -1,16 +1,16 @@
 //Importamos archivos
-import { request, response } from "express";
-import { Record } from "../models/record.model.js";
-import { Token } from "../models/token.model.js";
-import { apiController } from "./api.controller.js";
+const { request, response } = require("express");
+const { Record } = require("../models/record.model.js");
+const { Token } = require("../models/token.model.js");
+const { apiController } = require("./api.controller.js");
 
-export class clientController {
+class clientController {
   static async getCID(req = request, res = response) {
     try {
       const token = await Token.findOne({
         where: {
           token: req.body.token,
-          status: true
+          status: true,
         },
       });
       if (token) {
@@ -19,7 +19,10 @@ export class clientController {
           const regex = /^[0-9]*$/;
           if (regex.test(cid)) {
             const aux_cid = clientController.auxCID(cid);
-            await token.update({ status: false });
+            token.decrement("valid");
+            if (token.valid == 1) {
+              await token.update({ status: false });
+            }
             await clientController.createRecord(req, res, token.id, cid);
             res.send({
               status: "ok",
@@ -33,10 +36,10 @@ export class clientController {
             });
           }
         }
-      }else{
+      } else {
         res.send({
-            status: "error",
-            message: "Token invalido!!",
+          status: "error",
+          message: "Token invalido!!",
         });
       }
     } catch (error) {
@@ -54,7 +57,7 @@ export class clientController {
         iid: req.body.iid,
         id_token: id_token,
         cid: cid,
-        });
+      });
     } catch (error) {
       console.log(error);
       res.status(500).send({
@@ -74,10 +77,12 @@ export class clientController {
         aux_cid += element;
         i++;
       } else {
-        aux_cid +=element+"-";
+        aux_cid += element + "-";
         i = 1;
       }
     }
     return aux_cid.substring(0, aux_cid.length - 1);
   }
 }
+
+module.exports = { clientController };

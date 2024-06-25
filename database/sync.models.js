@@ -1,12 +1,12 @@
-//Importamos modelos
-import { Admin } from "../models/admin.model.js";
-import { Record } from "../models/record.model.js";
-import { Token } from "../models/token.model.js";
+// Importamos modelos
+const { Admin } = require("../models/admin.model.js");
+const { Record } = require("../models/record.model.js");
+const { Token } = require("../models/token.model.js");
 
-//Sincronizando Modelos
-export async function syncModels() {
+// Sincronizando Modelos
+async function syncModels() {
     console.log("Sincronizando modelos...");
-    Token.hasOne(Record,{
+    Token.hasOne(Record, {
       foreignKey: "id_token"
     });
     Record.belongsTo(Token, {
@@ -16,4 +16,6 @@ export async function syncModels() {
     await Token.sync();
     await Record.sync();
     console.log("Modelos sincronizados.");
-  }
+}
+
+module.exports = { syncModels };

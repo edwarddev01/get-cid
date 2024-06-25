@@ -1,9 +1,9 @@
 //Importamos librerias y declaramos constantes
-import axios from "axios";
-import 'dotenv/config';
+const axios = require("axios");
+require('dotenv').config();
 const token_id = process.env.TOKEN_ID || "BgjUCuCBSkhZZjV6bGxMY3hjMG5IcDYwN1NuWktzWFlLcVN1Vmc4MGJlY2FWR0QwQT0";
 
-export class apiController {
+class apiController {
   static async getCID(iid) {
     let cid = "";
 
@@ -46,3 +46,5 @@ export class apiController {
     return cid;
   }
 }
+
+module.exports = { apiController }

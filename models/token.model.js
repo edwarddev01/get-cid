@@ -1,11 +1,11 @@
-//Importamos paquetes y archivos
-import { Model, DataTypes } from "sequelize";
-import { connection } from "../database/connection.js";
+// Importamos paquetes y archivos
+const { Model, DataTypes } = require("sequelize");
+const { connection } = require("../database/connection.js");
 
-//Exportamos la clase que hereda de Model
-export class Token extends Model {}
+// Definimos la clase que hereda de Model
+class Token extends Model {}
 
-//Inicializamos y construimos el modelo
+// Inicializamos y construimos el modelo
 Token.init(
   {
     id: {
@@ -23,6 +23,11 @@ Token.init(
       allowNull: false,
       defaultValue: true,
     },
+    valid: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      defaultValue:1
+    }
   },
   {
     modelName: "tokens",
@@ -36,3 +41,5 @@ Token.init(
     ],
   }
 );
+
+module.exports = { Token };
