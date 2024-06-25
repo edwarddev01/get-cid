@@ -15,10 +15,7 @@
   },
   "author": "Edward Díaz",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/edwarddev01/get-cid/issues"
-  },
-  "homepage": "https://github.com/edwarddev01/get-cid#readme",
+  
   "dependencies": {
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
