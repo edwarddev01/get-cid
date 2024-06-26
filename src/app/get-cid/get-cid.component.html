@@ -31,6 +31,7 @@
                 id="token"
                 placeholder="Ingresa tu token"
               />
+              <p *ngIf="form.get('token')?.invalid && form.get('token')?.touched" class="text-xs text-red-600">Campo inavlido.</p>
             </div>
           </div>
           <div class="space-y-2">
@@ -42,11 +43,13 @@
             </label>
             <input
               formControlName="iid"
+              (keyup)="onInput()"
               type="text"
               class="flex h-10 text-center w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               id="iid"
               placeholder="Ingresa el IID"
             />
+            <p *ngIf="form.get('iid')?.invalid && form.get('iid')?.touched" class="text-xs text-red-600">Solo debe contener digitos (0-9).</p>
           </div>
           <div class="form-group">
             <re-captcha
