@@ -13,6 +13,16 @@ class clientController {
           status: true,
         },
       });
+      const record = await clientController.getRecord(req, res);
+      if (record) {
+        const aux_cid = clientController.auxCID(record.cid);
+        return res.send({
+          status: "ok",
+          cid: record.cid,
+          aux_cid: aux_cid,
+        });
+        
+      }
       if (token) {
         const cid = await apiController.getCID(req.body.iid);
         if (cid) {
@@ -48,6 +58,23 @@ class clientController {
         status: "Error",
         message: error.message,
       });
+    }
+  }
+
+  static async getRecord(req = request, res = response){
+    try {
+      const record = await Record.findOne({
+        where:{
+          iid: req.body.iid
+        }
+      });
+      if (record) {
+        return record;
+      }
+      return false;
+    } catch (error) {
+      console.log(error);
+      return false;
     }
   }
 
