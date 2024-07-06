@@ -10,7 +10,7 @@ const config = {
     timezone: "-05:00",
   },
   production: {
-    host: "5.161.77.171",
+    host: "localhost",
     database: "get_cid",
     username: "admincid",
     password: "Lorica2021+*",
