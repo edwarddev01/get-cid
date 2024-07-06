@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GetCidService } from '../services/get-cid.service';
 import { IgetCid } from '../interfaces/get-cid.interface';
 import { ToastrService } from 'ngx-toastr';
@@ -28,9 +28,9 @@ export class GetCidComponent implements OnInit {
   }
   initForm() {
     this.form = this.fb.group({
-      token: ['', Validators.required],
-      iid: ['', [Validators.required, Validators.pattern('^[0-9\-]+$')]],
-      recaptchaToken: ['', Validators.required],
+      token: new FormControl('', [Validators.required]),
+      iid: new FormControl('', [Validators.required, Validators.pattern('^[0-9\-]+$')]),
+      recaptchaToken: new FormControl('', [Validators.required]),
     });
   }
   onSubmit() {

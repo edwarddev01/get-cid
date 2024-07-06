@@ -9,12 +9,16 @@ import { GetCidComponent } from './get-cid/get-cid.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PreloaderComponent } from './preloader/preloader.component'; 
+import { PreloaderComponent } from './preloader/preloader.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component'; 
 @NgModule({
   declarations: [
     AppComponent,
     GetCidComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
