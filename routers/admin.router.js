@@ -10,7 +10,10 @@ const adminRouter = Router();
 // Definimos las rutas
 adminRouter.post("/api/v1/admin", adminController.createAdmin);
 adminRouter.post("/api/v1/admin/login",[verifyRecaptchaToken], adminController.loginAdmin);
-adminRouter.get("/api/v1/admin/token", [validateToken], adminController.getToken);
+adminRouter.post("/api/v1/admin/token", [validateToken], adminController.getToken);
+adminRouter.get("/api/v1/admin/tokens",[validateToken], adminController.getTokens)
+adminRouter.get("/api/v1/admin/records",[validateToken], adminController.getRecords)
+
 
 // Exportamos el enrutador
 module.exports = { adminRouter };

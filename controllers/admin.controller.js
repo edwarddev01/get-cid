@@ -67,7 +67,39 @@ class adminController {
       });
     }
   }
-
+  static async getTokens(req = request, res = response) {
+    try {
+      const tokens = await Token.findAll({
+        order: [["status","DESC"],["createdAt", "DESC"]],
+      });
+      res.send(tokens);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        status: "Error",
+        message: error.message,
+      });
+    }
+  }
+  static async getRecords(req = request, res = response) {
+    try {
+      const records = await Record.findAll({
+        order: [["createdAt", "DESC"]],
+        include: [
+          {
+            model: Token,
+          },
+        ],
+      });
+      res.send(records);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        status: "Error",
+        message: error.message,
+      });
+    }
+  }
   static async getToken(req = request, res = response) {
     try {
       const admin = await Admin.findOne({
@@ -97,6 +129,7 @@ class adminController {
           token = token_aux;
           await Token.create({
             token: token,
+            valid: req.body.valid,
           });
           break;
         }
@@ -104,6 +137,7 @@ class adminController {
       res.send({
         status: "ok",
         token: token,
+        valid: req.body.valid,
       });
     } catch (error) {
       console.log(error);
@@ -118,15 +152,13 @@ class adminController {
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
     let token = "";
-  
+
     for (let i = 0; i < 20; i++) {
       const randomIndex = Math.floor(Math.random() * charactersLength);
       token += characters.charAt(randomIndex);
     }
-  
     return token;
   }
-  
 }
 
 module.exports = { adminController };
