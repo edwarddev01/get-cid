@@ -1,0 +1,14 @@
+.my-pagination ::ng-deep .ngx-pagination .current{
+    border-radius: 5px;
+    background-color: transparent !important;
+    color: black;
+    border: 1px solid rgb(213, 207, 207);
+}
+.my-pagination ::ng-deep .ngx-pagination li a, .my-pagination ::ng-deep .ngx-pagination .current{
+    border-radius: 5px !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    margin-right: 10px;
+}

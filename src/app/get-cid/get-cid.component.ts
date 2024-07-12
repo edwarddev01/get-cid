@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { GetCidService } from '../services/get-cid.service';
 import { IgetCid } from '../interfaces/get-cid.interface';
 import { ToastrService } from 'ngx-toastr';
@@ -29,7 +34,10 @@ export class GetCidComponent implements OnInit {
   initForm() {
     this.form = this.fb.group({
       token: new FormControl('', [Validators.required]),
-      iid: new FormControl('', [Validators.required, Validators.pattern('^[0-9\-]+$')]),
+      iid: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[0-9-]+$'),
+      ]),
       recaptchaToken: new FormControl('', [Validators.required]),
     });
   }
@@ -64,6 +72,8 @@ export class GetCidComponent implements OnInit {
           }
         }
       );
+    } else {
+      this.toast.error(`Verifique los datos del formulario!!`, 'Error');
     }
   }
   onInput() {
@@ -71,7 +81,6 @@ export class GetCidComponent implements OnInit {
   }
 
   formatText() {
-    
     const inputText = this.form.get('iid')?.value;
     if (inputText.length == 63) {
       const groups = inputText.match(/.{1,7}/g) || [];
@@ -79,7 +88,7 @@ export class GetCidComponent implements OnInit {
       this.form.patchValue({
         iid: formattedText,
       });
-    }else{
+    } else {
       const groups = inputText.split('-');
       const formattedText = groups.join('');
       this.form.patchValue({

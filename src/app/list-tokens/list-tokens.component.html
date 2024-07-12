@@ -1,0 +1,203 @@
+<div>
+  <div
+    class="rounded-lg min-h-[500px] border bg-card text-card-foreground shadow-sm shadow-gray-500 bg-white bg-opacity-95"
+    data-v0-t="card"
+  >
+    <div class="flex flex-col space-y-1.5 p-6">
+      <h3
+        class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+      >
+        Token History
+      </h3>
+      <p class="text-sm text-muted-foreground">
+        View and manage your generated tokens.
+      </p>
+    </div>
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="relative">
+          <input
+            class="flex min-w-[300px] h-10 rounded-md border border-input bg-background px-1 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-8 w-full"
+            type="search"
+            placeholder="Search tokens..."
+             [(ngModel)]="searchText"
+            ngModel="searchText"
+            (ngModelChange)="gettokensFiltered()"
+          />
+        </div>
+        <nav
+          aria-label="pagination"
+          class="mx-auto flex w-full justify-center"
+          role="navigation"
+        >
+          <pagination-controls
+          class="my-pagination inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 gap-1 pl-2.5"
+            (pageChange)="page = $event"
+            previousLabel="Previous"
+            nextLabel="Next"
+            [maxSize]="5"
+            [autoHide]="true"
+            [responsive]="true"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page"
+          >
+          </pagination-controls>
+        </nav>
+      </div>
+      <div class="relative w-full overflow-auto">
+        <table class="w-full caption-bottom text-sm">
+          <thead class="[&amp;_tr]:border-b">
+            <tr
+              class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            >
+              <th
+                class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0"
+              >
+                Created At
+              </th>
+              <th
+                class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0"
+              >
+                Remaining Uses
+              </th>
+              <th
+                class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0"
+              >
+                Token
+              </th>
+              <th
+                class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0"
+              >
+                Status
+              </th>
+              <th
+                class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0"
+              >
+                <span class="sr-only">Copy</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="[&amp;_tr:last-child]:border-0">
+            <tr
+              *ngFor="
+                let token of tokensFilterd
+                  | paginate : { itemsPerPage: 3, currentPage: page, totalItems: total }
+              "
+              
+              class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            >
+              <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                {{ token.createdAt }}
+              </td>
+              <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                <div class="flex items-center gap-2" data-id="1">
+                  <button
+                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+                    data-id="2"
+                  >
+                    <svg
+                      data-id="3"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="w-5 h-5"
+                    >
+                      <path d="M5 12h14"></path>
+                    </svg></button
+                  ><input
+                    class="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-20 text-center"
+                    data-id="4"
+                    type="number"
+                    [value]="token.valid"
+                  /><button
+                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+                    data-id="5"
+                  >
+                    <svg
+                      data-id="6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="w-5 h-5"
+                    >
+                      <path d="M5 12h14"></path>
+                      <path d="M12 5v14"></path>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+              <td
+                class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-mono"
+              >
+                {{ token.token }}
+              </td>
+              <td
+                class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-mono"
+              >
+                <span
+                  *ngIf="token.status"
+                  class="bg-green-600 rounded-full px-1 text-white"
+                  >activo</span
+                >
+                <span
+                  *ngIf="!token.status"
+                  class="bg-red-600 rounded-full px-1 text-white"
+                  >inactivo</span
+                >
+              </td>
+              <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                <button
+                  type="button"
+                  (click)="copyToClipboard(token.token, 'token')"
+                  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-4 w-4"
+                  >
+                    <rect
+                      width="14"
+                      height="14"
+                      x="8"
+                      y="8"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    ></path>
+                  </svg>
+                  <span class="sr-only">Copy token</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-center w-full pt-2 text-sm" *ngIf="tokensFilterd.length == 0">
+          No hay tokens para mostrar
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
