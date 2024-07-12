@@ -17,6 +17,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { ListTokensComponent } from './list-tokens/list-tokens.component';
 import { GenerateTokenComponent } from './generate-token/generate-token.component';
+import { ListRecordsComponent } from './list-records/list-records.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import { GenerateTokenComponent } from './generate-token/generate-token.componen
     HomeComponent,
     ListTokensComponent,
     GenerateTokenComponent,
+    ListRecordsComponent,
     
   ],
   imports: [

@@ -20,8 +20,7 @@
             class="flex min-w-[300px] h-10 rounded-md border border-input bg-background px-1 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-8 w-full"
             type="search"
             placeholder="Search tokens..."
-             [(ngModel)]="searchText"
-            ngModel="searchText"
+            [(ngModel)]="searchText"
             (ngModelChange)="gettokensFiltered()"
           />
         </div>
@@ -31,7 +30,7 @@
           role="navigation"
         >
           <pagination-controls
-          class="my-pagination inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 gap-1 pl-2.5"
+            class="my-pagination inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 gap-1 pl-2.5"
             (pageChange)="page = $event"
             previousLabel="Previous"
             nextLabel="Next"
@@ -44,6 +43,9 @@
           >
           </pagination-controls>
         </nav>
+        <p class="text-sm w-[200px]">
+          Total tokens: {{ tokens.length }}
+        </p>
       </div>
       <div class="relative w-full overflow-auto">
         <table class="w-full caption-bottom text-sm">
@@ -82,9 +84,9 @@
             <tr
               *ngFor="
                 let token of tokensFilterd
-                  | paginate : { itemsPerPage: 3, currentPage: page, totalItems: total }
+                  | paginate
+                    : { itemsPerPage: 3, currentPage: page, totalItems: total }
               "
-              
               class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
             >
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
@@ -194,7 +196,10 @@
             </tr>
           </tbody>
         </table>
-        <p class="text-center w-full pt-2 text-sm" *ngIf="tokensFilterd.length == 0">
+        <p
+          class="text-center w-full pt-2 text-sm"
+          *ngIf="tokensFilterd.length == 0"
+        >
           No hay tokens para mostrar
         </p>
       </div>

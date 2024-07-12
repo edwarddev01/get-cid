@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild   } from '@angular/core';
+import { Component, OnInit   } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +9,7 @@ import { AdminService } from '../services/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '../services/loading.service';
 import { Itoken } from '../interfaces/token.interface';
+//import { ListTokensComponent } from '../list-tokens/list-tokens.component';
 
 @Component({
   selector: 'app-generate-token',
@@ -24,7 +25,7 @@ export class GenerateTokenComponent implements OnInit  {
     private fb: FormBuilder,
     private adminService: AdminService,
     private toast: ToastrService,
-    private loading: LoadingService
+    private loading: LoadingService,
   ) {}
   ngOnInit(): void {
       this.initForm();
@@ -44,6 +45,7 @@ export class GenerateTokenComponent implements OnInit  {
         (response) => {
           if (response && response.status == 'ok') {
             this.result = response;
+            //this.listTokens.getTokens();
             this.toast.success('Token generado correctamente!', 'Success');
           }
           this.loading.hide();
