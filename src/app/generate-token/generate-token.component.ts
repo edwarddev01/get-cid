@@ -60,5 +60,15 @@ export class GenerateTokenComponent implements OnInit  {
       this.toast.error(`Verifique los datos del formulario!!`, 'Error');
     }
   }
+
+  async copyToClipboard(copyText: string, text: string) {
+    try {
+      await navigator.clipboard.writeText(copyText);
+      this.toast.success(`${text} copiado correctamente!`, 'Success');
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+      this.toast.error(`Error al copiar ${text}}!`, 'Error');
+    }
+  }
   
 }

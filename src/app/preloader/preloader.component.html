@@ -1,6 +1,6 @@
 <div
 *ngIf="loading$ | async"
-  class="flex fixed top-0 right-0 left-0 bottom-0 items-center justify-center h-screen bg-gradient-to-br from-[#6365f199] to-[#8B5CF699]"
+  class="flex fixed top-0 right-0 z-50 left-0 bottom-0 items-center justify-center h-screen bg-gradient-to-br from-[#6365f199] to-[#8B5CF699]"
   data-id="1"
 >
   <div class="flex flex-col items-center space-y-4" data-id="2">
@@ -24,6 +24,6 @@
         <circle cx="12" cy="12" r="10"></circle>
       </svg>
     </div>
-    <p class="text-2xl font-medium text-white animate-bounce" data-id="5">Obteniendo CID...</p>
+    <p class="text-2xl font-medium text-white animate-bounce" data-id="5">Cargando...</p>
   </div>
 </div>

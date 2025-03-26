@@ -14,7 +14,7 @@ export class ListTokensComponent implements OnInit {
   public page!: number;
   public total!: number;
   public searchText: string = '';
-
+  Math = Math;
   constructor(
     private adminService: AdminService,
     private toast: ToastrService,
@@ -53,9 +53,9 @@ export class ListTokensComponent implements OnInit {
   }
 
   gettokensFiltered(): void {
-    this.tokensFilterd = []
+    this.tokensFilterd = [];
     this.tokensFilterd = this.tokens.filter((token) =>
-      token.token.toLowerCase().includes(this.searchText.toLowerCase())  
+      token.token.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 }

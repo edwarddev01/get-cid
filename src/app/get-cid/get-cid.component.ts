@@ -9,7 +9,7 @@ import { GetCidService } from '../services/get-cid.service';
 import { IgetCid } from '../interfaces/get-cid.interface';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '../services/loading.service';
-
+import Tesseract from 'tesseract.js';
 @Component({
   selector: 'app-get-cid',
   templateUrl: './get-cid.component.html',
@@ -94,6 +94,66 @@ export class GetCidComponent implements OnInit {
       this.form.patchValue({
         iid: formattedText,
       });
+    }
+  }
+  // =========================================
+  // Manejo del evento PASTE
+  // =========================================
+  async handlePaste(event: ClipboardEvent) {
+    // Si no hay datos en el portapapeles, salimos
+    if (!event.clipboardData) {
+      return;
+    }
+
+    // Prevenimos el pegado por defecto (para evitar que se pegue la imagen como binario)
+    event.preventDefault();
+
+    // Obtenemos todos los ítems del portapapeles
+    const items = event.clipboardData.items;
+
+    let foundImage = false;
+
+    // Recorremos los items pegados
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      // Verificamos si es una imagen
+      if (item.type.indexOf('image') !== -1) {
+        foundImage = true;
+
+        const file = item.getAsFile();
+        if (file) {
+          try {
+            // Mostramos un loader, si es que tienes
+            this.loading.show();
+
+            // Procesamos la imagen con Tesseract
+            const { data } = await Tesseract.recognize(file, 'eng');
+            const recognizedText = data.text.trim();
+
+            // Seteamos el texto reconocido en el FormControl "iid"
+            // Además podrías limpiar caracteres no deseados:
+            const cleanedText = recognizedText.replace(/[^0-9]/g, '');
+
+            this.form.patchValue({ iid: cleanedText });
+            this.formatText();
+            this.loading.hide();
+            this.toast.success('Texto extraído de la imagen exitosamente!');
+          } catch (error) {
+            this.loading.hide();
+            console.error('Error en OCR', error);
+            this.toast.error('No se pudo extraer texto de la imagen', 'Error');
+          }
+        }
+      }
+    }
+
+    // Si no encontramos imagen, puede que sea texto normal. Pega el texto directamente.
+    if (!foundImage) {
+      const pastedText = event.clipboardData.getData('text');
+      // Opcionalmente, podrías limpiar el texto:
+      // const cleaned = pastedText.replace(/[^0-9]/g, '');
+      this.form.patchValue({ iid: pastedText });
     }
   }
 }

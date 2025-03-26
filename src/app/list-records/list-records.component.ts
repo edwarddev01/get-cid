@@ -56,7 +56,7 @@ export class ListRecordsComponent implements OnInit {
   getRecordsFiltered(): void {
     this.recordsFilterd = [];
     this.recordsFilterd = this.records.filter((record) =>
-      record.iid.includes(this.searchText)
+      record.iid.includes(this.searchText) || record.token.token.includes(this.searchText)
     );
   }
   formatedCID(cid: string){
