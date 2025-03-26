@@ -38,7 +38,7 @@ class adminController {
         },
       });
       if (admin) {
-        const isValid = validatePassword(req.body.password, admin.password);
+        const isValid = await validatePassword(req.body.password, admin.password);
         if (isValid) {
           admin.password = undefined;
           const token = createTokenLogin(admin.toJSON());
@@ -149,11 +149,11 @@ class adminController {
   }
   static generateToken() {
     const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      "ABCDEFGHJKLMNOPQRSTUVWXYZ0123456789";
     const charactersLength = characters.length;
     let token = "";
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 6; i++) {
       const randomIndex = Math.floor(Math.random() * charactersLength);
       token += characters.charAt(randomIndex);
     }

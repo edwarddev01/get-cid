@@ -1,115 +1,106 @@
-//Importamos archivos
+// Importamos archivos
 const { request, response } = require("express");
 const { Record } = require("../models/record.model.js");
 const { Token } = require("../models/token.model.js");
 const { apiController } = require("./api.controller.js");
 
-class clientController {
+class ClientController {
   static async getCID(req = request, res = response) {
     try {
-      const token = await Token.findOne({
-        where: {
-          token: req.body.token,
-          status: true,
-        },
-      });
-      const record = await clientController.getRecord(req, res);
+      // Si se provee un access_token válido en los query params, se genera y formatea el CID
+      if (req.query.access_token && req.query.access_token === process.env.ACCESS_TOKEN) {
+        const cid = await apiController.getCID(req.body.iid);
+        if (!cid) {
+          return res.send({ status: "error", message: "No se pudo generar el CID." });
+        }
+        return res.send({ cid: cid.match(/.{1,6}/g).join('-') });
+      }
+      
+      // Si ya existe un registro para el iid, se devuelve directamente
+      const record = await ClientController.getRecord(req);
       if (record) {
-        const aux_cid = clientController.auxCID(record.cid);
         return res.send({
           status: "ok",
           cid: record.cid,
-          aux_cid: aux_cid,
+          aux_cid: ClientController.auxCID(record.cid),
         });
-        
       }
-      if (token) {
-        const cid = await apiController.getCID(req.body.iid);
-        if (cid) {
-          const regex = /^[0-9]*$/;
-          if (regex.test(cid)) {
-            const aux_cid = clientController.auxCID(cid);
-            token.decrement("valid");
-            if (token.valid == 1) {
-              await token.update({ status: false });
-            }
-            await clientController.createRecord(req, res, token.id, cid);
-            res.send({
-              status: "ok",
-              cid: cid,
-              aux_cid: aux_cid,
-            });
-          } else {
-            res.send({
-              status: "error",
-              message: cid,
-            });
-          }
-        }
-      } else {
-        res.send({
+      
+      // Se busca el token en base a req.body.token
+      const token = await Token.findOne({ where: { token: req.body.token } });
+      if (!token) {
+        return res.send({
           status: "error",
-          message: "Token invalido!!",
+          message: "Token no existe, verifique nuevamente.",
         });
       }
+      if (!token.status) {
+        return res.send({
+          status: "error",
+          message: "Token expirado.",
+        });
+      }
+      
+      // Se genera el CID usando el apiController
+      const cid = await apiController.getCID(req.body.iid);
+      if (!cid) {
+        return res.send({ status: "error", message: "No se pudo generar el CID." });
+      }
+      
+      // Validamos que el CID contenga solo dígitos
+      if (!/^[0-9]+$/.test(cid)) {
+        return res.send({ status: "error", message: cid });
+      }
+      
+      // Se decrementa la validez del token y se actualiza su estado si corresponde
+      const updatedToken = await token.decrement("valid");
+      if (updatedToken.valid <= 0) {
+        await token.update({ status: false });
+      }
+      
+      // Se crea un registro nuevo con el CID generado
+      await ClientController.createRecord(req, token.id, cid);
+      return res.send({
+        status: "ok",
+        cid: cid,
+        aux_cid: ClientController.auxCID(cid),
+      });
+      
     } catch (error) {
-      console.log(error);
-      res.status(500).send({
+      console.error(error);
+      return res.status(500).send({
         status: "Error",
         message: error.message,
       });
     }
   }
 
-  static async getRecord(req = request, res = response){
+  static async getRecord(req) {
     try {
-      const record = await Record.findOne({
-        where:{
-          iid: req.body.iid
-        }
-      });
-      if (record) {
-        return record;
-      }
-      return false;
+      return await Record.findOne({ where: { iid: req.body.iid } });
     } catch (error) {
-      console.log(error);
-      return false;
+      console.error(error);
+      return null;
     }
   }
 
-  static async createRecord(req = request, res = response, id_token, cid) {
+  static async createRecord(req, id_token, cid) {
     try {
       await Record.create({
         iid: req.body.iid,
-        id_token: id_token,
+        id_token: id_token || req.body.chat_id,
         cid: cid,
       });
     } catch (error) {
-      console.log(error);
-      res.status(500).send({
-        status: "Error",
-        message: error.message,
-      });
+      console.error(error);
+      throw error;
     }
   }
 
   static auxCID(cid) {
-    let aux_cid = "";
-    let i = 1;
-
-    for (let index = 0; index < cid.length; index++) {
-      const element = cid[index];
-      if (i < 6) {
-        aux_cid += element;
-        i++;
-      } else {
-        aux_cid += element + "-";
-        i = 1;
-      }
-    }
-    return aux_cid.substring(0, aux_cid.length - 1);
+    // Formatea el CID en grupos de 6 caracteres separados por guiones
+    return cid.match(/.{1,6}/g).join('-');
   }
 }
 
-module.exports = { clientController };
+module.exports = { ClientController };

@@ -8,7 +8,7 @@ const { verifyRecaptchaToken } = require("../utils/recaptcha.util.js");
 const adminRouter = Router();
 
 // Definimos las rutas
-adminRouter.post("/api/v1/admin", adminController.createAdmin);
+adminRouter.post("/api/v1/admin",[validateToken], adminController.createAdmin);
 adminRouter.post("/api/v1/admin/login",[verifyRecaptchaToken], adminController.loginAdmin);
 adminRouter.post("/api/v1/admin/token", [validateToken], adminController.getToken);
 adminRouter.get("/api/v1/admin/tokens",[validateToken], adminController.getTokens)
